@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cuenta | Login & Signup</title>
+    
+    <!-- Favicon - puedes cambiar la URL por tu propio favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/nrX4VtgS/icono-de-favoritos.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Fondo con imagen centrada */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.postimg.cc/L5Q8MZGY/Whats-App-Image-2025-10-17-at-12-34-40-PM.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+        
+        .form-container {
+            padding: 40px 30px;
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        /* CENTRAR EL TÍTULO "INICIAR SESIÓN" */
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* Icono al lado del título para mejor visualización */
+        .form-title i {
+            color: #6a11cb;
+            font-size: 24px;
+        }
+        
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6a11cb;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .input-group input:focus {
+            border-color: #6a11cb;
+            outline: none;
+            background-color: white;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            width: 100%; /* Hacer el botón más ancho */
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        /* CENTRAR EL BOTÓN "INICIAR SESIÓN" */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .btn-centered {
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+        }
+        
+        .form-footer a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #999;
+        }
+        
+        .separator::before, .separator::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .separator span {
+            padding: 0 15px;
+        }
+        
+        /* CENTRAR LOS BOTONES DE REDES SOCIALES */
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .google {
+            background-color: #dd4b39;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        #login-form {
+            display: block;
+        }
+        
+        #signup-form {
+            display: none;
+        }
+        
+        .form-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .remember-forgot label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .remember-forgot a {
+            color: #6a11cb;
+            text-decoration: none;
+        }
+        
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Animación de aparición */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .container {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .form-title {
+                font-size: 24px;
+            }
+            
+            .btn-centered {
+                max-width: 100%;
+            }
+        }
+        
+        /* Efecto de vidrio esmerilado */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: -1;
+            border-radius: 15px;
+        }
+        
+        /* Centrar checkbox "Recordarme" */
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Centrar el texto "O inicia con" */
+        .separator {
+            justify-content: center;
+        }
+        
+        /* Centrar el texto de registro */
+        .form-footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con imagen -->
+    <div class="background"></div>
+    <div class="overlay"></div>
+    
+    <!-- Contenedor del formulario -->
+    <div class="container">
+        <div class="form-container">
+            <!-- Formulario de Inicio de Sesión -->
+            <form id="login-form" class="form">
+                <!-- TÍTULO CENTRADO CON ICONO -->
+                <h2 class="form-title">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Iniciar Sesión
+                </h2>
+                
+                <div id="login-message" class="form-message"></div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="login-username" placeholder="Usuario o Email" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                </div>
+                
+                <div class="remember-forgot">
+                    <label>
+                        <input type="checkbox" id="remember-me">
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#" id="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <!-- BOTÓN CENTRADO -->
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-centered">Iniciar Sesión</button>
+                </div>
+                
+                <div class="separator">
+                    <span>O inicia con</span>
+                </div>
+                
+                <!-- BOTONES DE REDES SOCIALES CENTRADOS -->
+                <div class="social-login">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                </div>
+                
+                <!-- TEXTO DE REGISTRO CENTRADO -->
+                <div class="form-footer">
+                    ¿No tienes una cuenta? <a id="show-signup">Regístrate</a>
+                </div>
+            </form>
+            
+            <!-- Formulario de Registro -->
+            <form id="signup-form" class="form">
+                <!-- TÍTULO CENTRADO CON ICONO -->
+                <h2 class="form-title">
+                    <i class="fas fa-user-plus"></i>
+                    Crear Cuenta
+                </h2>
+                
+                <div id="signup-message" class="form-message"></div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signup-name" placeholder="Nombre completo" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signup-email" placeholder="Correo electrónico" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" id="signup-username" placeholder="Nombre de usuario" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-password" placeholder="Contraseña" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-confirm-password" placeholder="Confirmar contraseña" required>
+                </div>
+                
+                <!-- BOTÓN CENTRADO -->
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-centered">Registrarse</button>
+                </div>
+                
+                <div class="separator">
+                    <span>O regístrate con</span>
+                </div>
+                
+                <!-- BOTONES DE REDES SOCIALES CENTRADOS -->
+                <div class="social-login">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                </div>
+                
+                <!-- TEXTO DE INICIO DE SESIÓN CENTRADO -->
+                <div class="form-footer">
+                    ¿Ya tienes una cuenta? <a id="show-login">Iniciar Sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const showSignupBtn = document.getElementById('show-signup');
+        const showLoginBtn = document.getElementById('show-login');
+        const loginMessage = document.getElementById('login-message');
+        const signupMessage = document.getElementById('signup-message');
+        const forgotPasswordLink = document.getElementById('forgot-password');
+        
+        // Cambiar a formulario de registro
+        showSignupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            clearMessages();
+        });
+        
+        // Cambiar a formulario de inicio de sesión
+        showLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            clearMessages();
+        });
+        
+        // Función para limpiar mensajes
+        function clearMessages() {
+            loginMessage.style.display = 'none';
+            signupMessage.style.display = 'none';
+        }
+        
+        // Función para mostrar mensaje
+        function showMessage(element, message, type) {
+            element.textContent = message;
+            element.className = `form-message ${type}`;
+            element.style.display = 'block';
+            
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Validación del formulario de registro
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const username = document.getElementById('signup-username').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            // Validaciones básicas
+            if (name.length < 2) {
+                showMessage(signupMessage, 'El nombre debe tener al menos 2 caracteres', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showMessage(signupMessage, 'Por favor ingresa un correo electrónico válido', 'error');
+                return;
+            }
+            
+            if (username.length < 3) {
+                showMessage(signupMessage, 'El nombre de usuario debe tener al menos 3 caracteres', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showMessage(signupMessage, 'La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage(signupMessage, 'Las contraseñas no coinciden', 'error');
+                return;
+            }
+            
+            // Simular registro exitoso
+            showMessage(signupMessage, '¡Registro exitoso! Ahora puedes iniciar sesión.', 'success');
+            
+            // Limpiar formulario
+            signupForm.reset();
+            
+            // Cambiar a formulario de inicio de sesión después de 2 segundos
+            setTimeout(() => {
+                signupForm.style.display = 'none';
+                loginForm.style.display = 'block';
+                clearMessages();
+            }, 2000);
+            
+            // En una aplicación real, aquí enviarías los datos al servidor
+            console.log('Datos de registro:', {name, email, username, password});
+        });
+        
+        // Validación del formulario de inicio de sesión
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            
+            // Validaciones básicas
+            if (username === '') {
+                showMessage(loginMessage, 'Por favor ingresa tu usuario o email', 'error');
+                return;
+            }
+            
+            if (password === '') {
+                showMessage(loginMessage, 'Por favor ingresa tu contraseña', 'error');
+                return;
+            }
+            
+            // Simular inicio de sesión exitoso
+            showMessage(loginMessage, '¡Inicio de sesión exitoso! Redirigiendo...', 'success');
+            
+            // Limpiar formulario
+            loginForm.reset();
+            
+            // En una aplicación real, aquí enviarías los datos al servidor
+            console.log('Datos de login:', {username, password, rememberMe});
+            
+            // Simular redirección después de 2 segundos
+            setTimeout(() => {
+                // En una aplicación real, aquí redirigirías al usuario
+                // window.location.href = 'dashboard.html';
+                alert('Redirigiendo al dashboard... (simulación)');
+            }, 2000);
+        });
+        
+        // Función para validar email
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Simular funcionalidad de "olvidé mi contraseña"
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = prompt("Por favor ingresa tu correo electrónico para restablecer tu contraseña:");
+            
+            if (email && isValidEmail(email)) {
+                alert(`Se ha enviado un enlace de restablecimiento a: ${email}\n(Simulación)`);
+            } else if (email) {
+                alert("Por favor ingresa un correo electrónico válido.");
+            }
+        });
+        
+        // Simular inicio de sesión con redes sociales
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const network = this.classList.contains('facebook') ? 'Facebook' : 
+                               this.classList.contains('google') ? 'Google' : 'Twitter';
+                alert(`Iniciando sesión con ${network}... (simulación)`);
+            });
+        });
+        
+        // Añadir efecto de carga inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.querySelector('.container').style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
