@@ -1,0 +1,36 @@
+#proximos proyectos a hacer 
+📱 App de Gestión de Rutinas de Gym (Kotlin + IA básica)
+Ya que te gusta el gym, este es el proyecto perfecto para mostrar tu interés en Desarrollo Móvil.
+
+El Proyecto: Una app en Kotlin que registre tus entrenamientos.
+
+El toque de IA: Puedes implementar una lógica sencilla en Python (que corra en un servidor o local) que, basándose en tus pesos levantados, te sugiera cuánto peso subir la próxima semana (progresión lineal).
+
+Por qué ayuda: Demuestra que sabes conectar una necesidad personal con código móvil.
+
+2. 🤖 Automatizador de Reportes de Semilleros (n8n + Python)
+Este proyecto grita "soy productivo y sé usar n8n".
+
+El Proyecto: Un flujo en n8n que detecte cuando se sube un nuevo paper o noticia en un sitio web de IA y te envíe un resumen automático a tu Telegram o Discord.
+
+El toque técnico: Usa un script pequeño de Python para limpiar el texto del resumen antes de enviarlo.
+
+Por qué ayuda: Muestra que sabes usar herramientas de automatización para optimizar el flujo de información, algo vital para el trabajo remoto.
+
+3. 🌐 Dashboard de Gestión para "Empresas en Formación" (JS + SQL)
+Para darle peso a tu experiencia con CPanel e interfaces.
+
+El Proyecto: Un panel administrativo (puedes usar HTML/JS y una base de datos SQL sencilla) donde un usuario pueda gestionar inventarios o contactos de una microempresa.
+
+El toque pro: Documenta cómo este panel facilitaría la vida de alguien que usa CPanel, enfocándote en la interfaz limpia (UI/UX).
+
+Por qué ayuda: Valida tu experiencia previa y demuestra que entiendes las necesidades de las empresas pequeñas/medianas.
+
+4. 🎮 Galería de Activos 3D (Maya + Web)
+Para mostrar que estás aprendiendo Maya de forma honesta.
+
+El Proyecto: Un repositorio donde subas tus archivos .obj o .fbx de modelos básicos que vayas haciendo (una pesa de gym, una mesa, etc.).
+
+El toque extra: Crea un archivo index.html simple que use una librería llamada Three.js para visualizar uno de tus modelos en 3D directamente en el navegador.
+
+Por qué ayuda: Demuestra que eres "inquieto" y que cuando aprendes algo nuevo (como Maya), lo documentas y lo compartes.
